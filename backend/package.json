@@ -6,6 +6,7 @@
   "author": "tmmoond8",
   "license": "MIT",
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
     "@types/node": "^12.0.10",
     "babel-runtime": "^6.26.0",
     "gql-merge": "^0.0.6",
@@ -22,6 +23,7 @@
   },
   "dependencies": {
     "app-root-path": "^2.2.1",
+    "dotenv": "^8.0.0",
     "graphql-middleware": "^3.0.2",
     "graphql-tools": "^4.0.5",
     "graphql-yoga": "^1.18.0",
