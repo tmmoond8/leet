@@ -7,12 +7,16 @@ const projectRoot = path.basename(root);
 
 const getChildren = (parent: string) => {
   const files = readdirSync(parent);
-  return files.map(name => ({
-    name: `${projectRoot}/${name}`,
-    children: fs.statSync(path.join(parent, name)).isDirectory()
-      ? getChildren(path.resolve(parent, name))
-      : null
-  }));
+  return files.map(name => {
+    const isDirectory = fs.statSync(path.join(parent, name)).isDirectory();
+    return {
+      name: `${projectRoot}/${name}`,
+      children: isDirectory
+        ? getChildren(path.resolve(parent, name))
+        : null,
+      content: isDirectory ? "" : fs.readFileSync(path.join(parent, name), 'utf8')
+    }
+  });
 }
 
 const fileTree = (function () {
@@ -20,20 +24,22 @@ const fileTree = (function () {
     const children = getChildren(path.resolve(root, 'src'));
     return {
       name: projectRoot,
-      children
+      children,
+      content: ""
     };
   } catch (err) {
     console.error(err);
     return {
       name: "failed",
-      children: null
+      children: null,
+      content: ""
     }
   }
 })();
 
 const resolvers = {
   Query: {
-    getFile: (): File => {
+    GetFile: (): File => {
       return fileTree;
     }
   }

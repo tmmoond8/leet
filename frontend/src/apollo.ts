@@ -48,7 +48,7 @@ const apolloClient = new ApolloClient({
       }
     });
   },
-  uri: `${process.env.REACT_APP_SERVER_URL}/graphql`
+  uri: `http://localhost:34000/graphql`
 });
 
 export default apolloClient;

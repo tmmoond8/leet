@@ -1,8 +1,9 @@
 type File {
   name: String!
   children: [File]
+  content: String!
 }
 
 type Query {
-  getFile: File
+  GetFile: File
 }
