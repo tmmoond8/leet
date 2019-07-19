@@ -1,0 +1,5 @@
+type Message {
+  id: Int!
+  nickname: String!
+  text: String!
+}

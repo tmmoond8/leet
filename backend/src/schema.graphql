@@ -1,3 +1,9 @@
+type Message {
+  id: Int!
+  nickname: String!
+  text: String!
+}
+
 type File {
   name: String!
   children: [File]
@@ -6,4 +12,25 @@ type File {
 
 type Query {
   GetFile: File
+  GetMessages: GetMessagesResponse!
+}
+
+type GetMessagesResponse {
+  ok: Boolean!
+  error: String
+  messages: [Message]
+}
+
+type Subscription {
+  MessageSubscription: Message
+}
+
+type SendMessageResponse {
+  ok: Boolean!
+  error: String
+  message: Message
+}
+
+type Mutation {
+  SendMessage(nickname: String!, text: String!): SendMessageResponse!
 }

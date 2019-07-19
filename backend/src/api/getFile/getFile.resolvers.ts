@@ -2,6 +2,7 @@ import { path as root } from 'app-root-path';
 import fs, { readdirSync } from 'fs';
 import path from 'path';
 import { File } from '../../types/graph';
+import { Resolvers } from '../../types/resolvers';
 
 const projectRoot = path.basename(root);
 
@@ -37,7 +38,7 @@ const fileTree = (function () {
   }
 })();
 
-const resolvers = {
+const resolvers: Resolvers = {
   Query: {
     GetFile: (): File => {
       return fileTree;
