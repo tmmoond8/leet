@@ -2,6 +2,7 @@ type Message {
   id: Int!
   nickname: String!
   text: String!
+  createdAt: Float!
 }
 
 type File {

@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import Chat from "routes/Chat";
 import FileTree from "routes/FileTree";
 import Home from "routes/Home";
 
@@ -11,6 +12,7 @@ const Routes: React.SFC = () => (
   <Switch>
     <Route path={"/"} exact={true} component={Home}/>
     <Route path={"/filetree"} exact={true} component={FileTree}/>
+    <Route path={"/chat"} exact={true} component={Chat}/>
     <Redirect from={"*"} to={"/"} />
   </Switch>
 );

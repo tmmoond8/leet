@@ -17,14 +17,15 @@ const resolvers: Resolvers = {
       const message: Message = {
         nickname,
         text,
-        id: Math.floor(Math.random() * 27943671)
+        id: Math.floor(Math.random() * 27943671),
+        createdAt: new Date().getTime(),
       }
       chatData.addMessage(message);
       pubSub.publish("newChatMessage", { MessageSubscription: message })
       return {
         ok: true,
         error: null,
-        message
+        message,
       }
     }
   }
