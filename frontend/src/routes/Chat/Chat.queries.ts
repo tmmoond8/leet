@@ -1,29 +1,18 @@
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 
 export const GET_MESSAGES = gql`
   query getMessages {
     GetMessages {
       ok
-    error
-    messages {
-      text
-      nickname
-      id
-      createdAt
+      error
+      messages {
+        text
+        nickname
+        id
+        createdAt
+      }
     }
   }
-}
-`;
-
-export const MESSAGE_SUBSCRIPTION = gql`
-  subscription messageUpdate {
-    MessageSubscription {
-      id
-      text
-      nickname
-      createdAt
-    }
-  }  
 `;
 
 export const SEND_MESSAGE = gql`
@@ -39,4 +28,16 @@ export const SEND_MESSAGE = gql`
     }
   }
 }
+`;
+
+
+export const SUBSCRIBE_TO_MESSAGES = gql`
+  subscription messageSubscription {
+    MessageSubscription {
+      id
+      text
+      nickname
+      createdAt
+    }
+  }
 `;

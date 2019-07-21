@@ -1,54 +1,107 @@
-import ApolloClient, { Operation } from 'apollo-boost';
-import dotenv from 'dotenv';
-dotenv.config();
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { ApolloClient } from "apollo-client";
+import { ApolloLink, concat, Operation, split } from "apollo-link";
+import { onError } from "apollo-link-error";
+import { HttpLink } from "apollo-link-http";
+import { withClientState } from 'apollo-link-state';
+import { WebSocketLink } from 'apollo-link-ws';
+import { getMainDefinition } from 'apollo-utilities';
 
-const apolloClient = new ApolloClient({
-  clientState: {
-    defaults: {
-      auth: {
-        __typename: "Auth",
-        isLoggedIn: Boolean(localStorage.getItem("jwt"))
-      }
+const getToken = () => {
+  const token = localStorage.getItem('jwt');
+  return token || "";
+};
+
+const cache = new InMemoryCache();
+
+const authMiddleware = new ApolloLink((operation: Operation, forward: any) => {
+  operation.setContext({
+    headers: {
+      "X-JWT": getToken()
+    }
+  });
+  return forward(operation);
+});
+
+const httpLink = new HttpLink({
+  uri: "http://localhost:34000/graphql"
+});
+
+const wsLink = new WebSocketLink({
+  options: {
+    connectionParams: {
+      "X-JWT": getToken()
     },
-    resolvers: {
-      Mutation: {
-        // 인자는 순서대로, parent, args, contexg 다. 서버와 동일하다.
-        logUserIn: (_, { token }, { cache }) => {
-          localStorage.setItem("jwt", token);
-          cache.writeData({
-            data: {
-              auth: {
-                __typename: "Auth",
-                isLoggedIn: true,
-              }
-            }
-          });
-          return null;
-        },
-        // 인자는 순서대로, parent, args, contexg 다. 서버와 동일하다.
-        logUserOut: (_, __, { cache }) => {
-          localStorage.removeItem("jwt");
-          cache.writeData({
-            data: {
-              auth: {
-                __typename: "Auth",
-                isLoggedIn: false,
-              }
-            }
-          });
-          return null;
-        },
-      }
+    reconnect: true
+  },
+  uri: "ws://localhost:34000/subscription"
+});
+
+const combinedLinks = split(
+  ({ query }) => {
+    const { kind, operation }: any = getMainDefinition(query);
+    return kind === "OperationDefinition" && operation === "subscription";
+  },
+  wsLink,
+  httpLink
+);
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+    graphQLErrors.map(({ message }) => {
+      console.error(`Unexpected error: ${message}`);
+    });
+  }
+  if (networkError) {
+    console.error(`Network error: ${networkError}`);
+  }
+});
+
+const localStateLink = withClientState({
+  cache,
+  defaults: {
+    auth: {
+      __typename: "Auth",
+      isLoggedIn: Boolean(localStorage.getItem("jwt"))
     }
   },
-  request: async (operation: Operation) => {
-    operation.setContext({
-      headers: {
-        "X-JWT": localStorage.getItem("jwt")
-      }
-    });
-  },
-  uri: `http://localhost:34000/graphql`
+  resolvers: {
+    Mutation: {
+      logUserIn: (_, { token }, { cache: appCache }) => {
+        localStorage.setItem("jwt", token);
+        cache.writeData({
+          data: {
+            auth: {
+              __typename: "Auth",
+              isLoggedIn: true,
+            }
+          }
+        });
+        return null;
+      },
+      logUserOut: (_, __, { cache: appCache }) => {
+        localStorage.removeItem("jwt");
+        cache.writeData({
+          data: {
+            auth: {
+              __typename: "Auth",
+              isLoggedIn: false,
+            }
+          }
+        });
+        return null;
+      },
+    }
+  }
+});
+
+const apolloClient = new ApolloClient({
+  cache,
+  link: ApolloLink.from([
+    errorLink,
+    localStateLink,
+    concat(authMiddleware, combinedLinks)
+  ])
 });
 
 export default apolloClient;

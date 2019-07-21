@@ -1,5 +1,4 @@
 import { withFilter } from "graphql-yoga";
-
 const resolvers = {
   Subscription: {
     MessageSubscription: {
@@ -7,7 +6,9 @@ const resolvers = {
         (_, __, { pubSub }) => {
           return pubSub.asyncIterator("newChatMessage")
         },
-        (payload, args, context) => true
+        (payload, args, context) => {
+          return true;
+        }
       )
     }
   }
