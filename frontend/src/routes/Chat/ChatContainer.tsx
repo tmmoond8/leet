@@ -5,7 +5,6 @@ import {
   sendMessage,
   sendMessageVariables,
 } from '../../types/api';
-import { IMessage } from '../../types/models';
 import {
   GET_MESSAGES,
   SEND_MESSAGE,
@@ -14,7 +13,7 @@ import ChatPresenter from './ChatPresenter';
 
 interface IProps {}
 interface IState {
-  messages: IMessage[];
+  inputText: string;
 }
 
 class ChatQuery extends Query<getMessages> {}
@@ -26,18 +25,26 @@ export default class ChatContainer extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      messages: []
+      inputText: '',
     }
   }
 
   public render() {
+    const { inputText } = this.state;
     return (
       <ChatQuery query={GET_MESSAGES}>
         {({ data }) => (
           <SendMessageMutation mutation={SEND_MESSAGE}>
             {sendMessageMutation => {
               this.sendMessageMutation = sendMessageMutation;
-              return <ChatPresenter messageData={data}/>;
+              return (
+                <ChatPresenter 
+                  inputText={inputText}
+                  messageData={data}
+                  onChangeInput={this.handleChangeInput}
+                  onSubmitMessage={this.handleSubmitMessage}
+                />
+              );
             }}
           </SendMessageMutation>
         )}
@@ -45,5 +52,26 @@ export default class ChatContainer extends React.Component<IProps, IState> {
     )
   }
 
-  
+  public handleChangeInput: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    const { target: { value} } = event;
+    this.setState({
+      inputText: value
+    })
+  }
+
+  public handleSubmitMessage = (event) => {
+    event.preventDefault();
+    const { inputText } = this.state;
+    if (this.sendMessageMutation) {
+      this.sendMessageMutation({
+        variables: {
+          nickName: 'test',
+          text: inputText
+        }
+      });
+      this.setState({
+        inputText: ''
+      })
+    }
+  }
 }
