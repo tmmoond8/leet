@@ -1,6 +1,7 @@
 import React from 'react';
-
+import Input from '../../components/Input';
 import Message from '../../components/Message';
+import styled from '../../typed-components';
 import { IMessage } from '../../types/models';
 
 interface IProps {
@@ -10,10 +11,21 @@ interface IProps {
   onSubmitMessage: (event: any) => void;
 }
 
-const messageListStyle = {
-  padding: '1rem'
-}
+const MessageInputWrapper = styled.div`
+  height: 50px;
+  margin: 40px 20px;
+`;
 
+const MessageList = styled.ul`
+  flex: 1;
+  padding: 1rem;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: -webkit-fill-available;
+`;
 
 const ChatPresenter = (props: IProps) => {
   const { inputText, messageData, onChangeInput, onSubmitMessage } = props;
@@ -26,24 +38,24 @@ const ChatPresenter = (props: IProps) => {
     } 
   } = messageData;
   return (
-    <section>
-      <ul style={messageListStyle}>
+    <Wrapper>
+      <MessageList>
         {
           Array.isArray(messages) && 
-          messages.map((message: IMessage) => !!message && <Message message={message} key={message.id}/>)
+          messages.map((message: IMessage) => !!message && <Message {...message} mine={true} key={message.id}/>)
         }
-      </ul>
-      <div className="inputbar">
+      </MessageList>
+      <MessageInputWrapper>
         <form onSubmit={onSubmitMessage}>
-          <input 
+          <Input 
             value={inputText} 
-            placeholder="input your nickname" 
+            placeholder="input your message" 
             onChange={onChangeInput}
             name="message"
           />
         </form>
-      </div>
-    </section>
+      </MessageInputWrapper>
+    </Wrapper>
   );
 }
 

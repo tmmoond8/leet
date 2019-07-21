@@ -1,27 +1,54 @@
 import React from 'react';
-import { IMessage } from '../../types/models';
+import styled, { withProps } from '../../typed-components';
 
-interface IMessageProps {
-  message: IMessage;
+interface IProps {
+  nickname: string;
+  createdAt: number;
+  text: string;
+  mine: boolean;
 }
 
+const Mesage = withProps<IProps, HTMLDivElement>(styled.li)`
+  color: #333333;
+  border-radius: 1.2rem;
+  
+  & > p:first {
+    display: flex; 
+    padding: .8rem 0 .2rem 0;
+  }
 
-const textStyle = {
-  backgroundColor: '#3498db',
-  color: 'white',
-  padding: '1rem 1.2rem',
-  borderRadius: '1.2rem',
-  alignSelf: 'flex-end',
-  margin: '0 1rem',
-}
-
-const Message = (props: IMessageProps) => {
-  const { 
-    message: {
-      createdAt,
-      nickname,
-      text,
+  .meta {
+    display: flex;
+    flex-direction: ${props => (props.mine ? 'row-reverse' : 'row')}
+    padding: .8rem 0 .3rem 0;
+    .nickname {
+      font-size: 1.3rem;
     }
+    .time {
+      flex: 1;
+      text-align: ${props => (props.mine ? 'left' : 'right')};
+      font-size: 14px;
+    }
+  }
+
+  .text {
+    background-color: ${props => (props.mine ? props.theme.blueColor : props.theme.greyColor)};
+    color: white;
+    padding: 1rem 1.2rem;
+    border-radius: 1.2rem;
+    align-self: flex-end;
+    margin: 0 1rem;
+    border-top-left-radius: ${props => (!props.mine ? "0" : "1.2rem")};
+    border-top-right-radius: ${props => (props.mine ? "0" : "1.2rem")};
+  }
+`;
+
+const Message = (props: IProps) => {
+  const { 
+    createdAt,
+    nickname,
+    text,
+    mine,
   } = props;
   const createdDate = new Date(createdAt);
   const dateModel = {
@@ -31,20 +58,19 @@ const Message = (props: IMessageProps) => {
     hour: createdDate.getHours(),
     minute: createdDate.getMinutes()
   }
-  const { year, month, date, hour, minute } = dateModel;
+  const { hour, minute } = dateModel;
 
   return (
-    <li>
-      <p style={{ display: 'flex', padding: '.5rem 0' }}>
-        <span style={{ fontSize: '1.3rem'}}>{nickname}</span>
-        <span style={{ flex: '1', textAlign: 'right' }}>
-          {`${year}-${month}-${date} `}
+    <Mesage mine={mine}>
+      <p className="meta">
+        <span className="nickname">{nickname}</span>
+        <span className="time">
           {hour > 12 ? 'AM' : 'PM'}
           {` ${Math.floor(hour%13 + hour/13)}:${minute}`}
         </span>
       </p>
-      <p style={textStyle}>{text}</p>
-    </li>
+      <p className="text">{text}</p>
+    </Mesage>
   )
 }
 
