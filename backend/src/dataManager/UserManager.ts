@@ -1,6 +1,6 @@
 import {
   User
-} from '../../types/graph';
+} from '../types/graph';
 
 class UserData {
   private userMap: {} = {};

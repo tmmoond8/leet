@@ -1,6 +1,6 @@
 import {
   Message
-} from '../../types/graph';
+} from '../types/graph';
 
 class ChatData {
   private messages: Message[] = [];

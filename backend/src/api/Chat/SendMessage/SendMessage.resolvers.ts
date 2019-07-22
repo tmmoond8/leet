@@ -1,11 +1,10 @@
+import chatManager from '../../../dataManager/ChatManager';
 import {
   Message,
   SendMessageMutationArgs,
   SendMessageResponse,
 } from '../../../types/graph';
 import { Resolvers } from "../../../types/resolvers";
-import chatData from '../ChatData';
-import UserData from '../UserData';
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -14,8 +13,9 @@ const resolvers: Resolvers = {
       args: SendMessageMutationArgs,
       { req, pubSub },
     ): SendMessageResponse => {
-      const { userId, text } = args;
-      const user = UserData.getUser(userId);
+      console.log(req.user);
+      const { user } = req;
+      const { text } = args;
       if (!!user) {
         return {
           ok: false,
@@ -24,12 +24,12 @@ const resolvers: Resolvers = {
         }
       }
       const message: Message = {
-        user: UserData.getUser(userId),
+        user,
         text,
         id: Math.floor(Math.random() * 27943671),
         createdAt: new Date().getTime(),
       }
-      chatData.addMessage(message);
+      chatManager.addMessage(message);
       pubSub.publish("newChatMessage", { MessageSubscription: message })
       return {
         ok: true,

@@ -1,3 +1,4 @@
+import { createJWT } from '../../../lib';
 import { ChatJoinMutationArgs, ChatJoinResponse, User } from "../../../types/graph";
 import { Resolvers } from "../../../types/resolvers";
 
@@ -13,7 +14,7 @@ const resolvers: Resolvers = {
       return {
         ok: true,
         error: null,
-        token: JSON.stringify(newUser)
+        token: createJWT(newUser.id)
       }
     }
   }

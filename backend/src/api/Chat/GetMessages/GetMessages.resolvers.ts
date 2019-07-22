@@ -2,7 +2,7 @@ import {
   GetMessagesResponse
 } from "../../../types/graph";
 import { Resolvers } from "../../../types/resolvers";
-import ChatData from '../ChatData';
+import ChatData from '../../../dataManager/ChatManager';
 
 
 const resolvers: Resolvers = {
