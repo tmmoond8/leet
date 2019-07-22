@@ -14,9 +14,12 @@ import {
 } from './Chat.queries';
 import ChatPresenter from './ChatPresenter';
 
-interface IProps extends RouteComponentProps<any> {}
+interface IProps extends RouteComponentProps<any> {
+  isLoggined: boolean;
+}
 interface IState {
-  inputText: string;
+  message: string;
+  nickname: string;
 }
 
 class ChatQuery extends Query<getMessages> {}
@@ -28,12 +31,14 @@ export default class ChatContainer extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      inputText: '',
+      message: '',
+      nickname: '',
     }
   }
 
   public render() {
-    const { inputText } = this.state;
+    const { isLoggined } = this.props;
+    const { message, nickname } = this.state;
     return (
       <ChatQuery query={GET_MESSAGES}>
         {({ data, subscribeToMore }) => {
@@ -74,10 +79,12 @@ export default class ChatContainer extends React.Component<IProps, IState> {
                 this.sendMessageMutation = sendMessageMutation;
                 return (
                   <ChatPresenter 
-                    inputText={inputText}
+                    inputText={message}
                     messageData={data}
                     onChangeInput={this.handleChangeInput}
                     onSubmitMessage={this.handleSubmitMessage}
+                    isLoggined={isLoggined}
+                    nickname={nickname}
                   />
                 );
               }}
@@ -89,24 +96,24 @@ export default class ChatContainer extends React.Component<IProps, IState> {
   }
 
   public handleChangeInput: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    const { target: { value} } = event;
+    const { target: { value, name } } = event;
     this.setState({
-      inputText: value
-    })
+      [name]: value
+    } as any)
   }
 
   public handleSubmitMessage = (event) => {
     event.preventDefault();
-    const { inputText } = this.state;
+    const { message } = this.state;
     if (this.sendMessageMutation) {
       this.sendMessageMutation({
         variables: {
           nickName: 'test',
-          text: inputText
+          text: message
         }
       });
       this.setState({
-        inputText: ''
+        message: ''
       })
     }
   }

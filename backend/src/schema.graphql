@@ -1,8 +1,13 @@
 type Message {
   id: Int!
-  nickname: String!
+  user: User!
   text: String!
   createdAt: Float!
+}
+
+type User {
+  id: Int!
+  nickname: String!
 }
 
 type File {
@@ -22,6 +27,17 @@ type GetMessagesResponse {
   messages: [Message]
 }
 
+type ChatJoinResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type Mutation {
+  ChatJoin(nickname: String!): ChatJoinResponse!
+  SendMessage(userId: Int!, text: String!): SendMessageResponse!
+}
+
 type Subscription {
   MessageSubscription: Message
 }
@@ -30,8 +46,4 @@ type SendMessageResponse {
   ok: Boolean!
   error: String
   message: Message
-}
-
-type Mutation {
-  SendMessage(nickname: String!, text: String!): SendMessageResponse!
 }

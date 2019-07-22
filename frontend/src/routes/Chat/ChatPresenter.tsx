@@ -9,6 +9,8 @@ interface IProps {
   messageData : any;
   onChangeInput: React.ChangeEventHandler<HTMLInputElement>;
   onSubmitMessage: (event: any) => void;
+  isLoggined: boolean;
+  nickname: string;
 }
 
 const MessageInputWrapper = styled.div`
@@ -27,8 +29,26 @@ const Wrapper = styled.div`
   height: -webkit-fill-available;
 `;
 
+const NicknameInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  
+  form {
+    height: 100px;
+    width: 300px;
+    input {
+      height: 50px;
+      text-align: center;
+    }
+  }
+`;
+
 const ChatPresenter = (props: IProps) => {
-  const { inputText, messageData, onChangeInput, onSubmitMessage } = props;
+  const { inputText, messageData, onChangeInput, onSubmitMessage, isLoggined, nickname } = props;
   if (!messageData || !messageData.GetMessages || !messageData.GetMessages.ok) {
     return <h2>fail to fetch data.</h2>;
   }
@@ -37,26 +57,48 @@ const ChatPresenter = (props: IProps) => {
       messages
     } 
   } = messageData;
-  return (
-    <Wrapper>
-      <MessageList>
-        {
-          Array.isArray(messages) && 
-          messages.map((message: IMessage) => !!message && <Message {...message} mine={true} key={message.id}/>)
-        }
-      </MessageList>
-      <MessageInputWrapper>
+
+  if (isLoggined) {
+    return (
+      <Wrapper>
+        <MessageList>
+          {
+            Array.isArray(messages) && 
+            messages.map((message: IMessage) => !!message && <Message {...message} mine={true} key={message.id}/>)
+          }
+        </MessageList>
+        <MessageInputWrapper>
+          <form onSubmit={onSubmitMessage}>
+            <Input 
+              value={inputText} 
+              placeholder="input your message" 
+              onChange={onChangeInput}
+              name="message"
+            />
+          </form>
+        </MessageInputWrapper>
+      </Wrapper>
+    );
+  } else {
+    return (
+      <NicknameInputWrapper>
         <form onSubmit={onSubmitMessage}>
           <Input 
-            value={inputText} 
-            placeholder="input your message" 
+            value={nickname} 
+            placeholder="input your nickname" 
             onChange={onChangeInput}
-            name="message"
+            name="nickname"
+          />
+          <Input
+            value="Join"
+            type="button"
+            onChange={null}
+            onClick={() => console.log('join')}
           />
         </form>
-      </MessageInputWrapper>
-    </Wrapper>
-  );
+      </NicknameInputWrapper>
+    )
+  }
 }
 
 export default ChatPresenter;

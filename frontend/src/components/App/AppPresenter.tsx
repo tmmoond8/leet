@@ -8,19 +8,18 @@ interface IProps {
   isLoggedIn: boolean;
 }
 
-const Routes: React.SFC = () => (
+const Routes = ({ isLoggedIn }) => (
   <Switch>
     <Route path={"/"} exact={true} component={Home}/>
     <Route path={"/filetree"} exact={true} component={FileTree}/>
-    <Route path={"/chat"} exact={true} component={Chat}/>
+    <Route path={"/chat"} exact={true} component={Chat} isLoggined={isLoggedIn}/>
     <Redirect from={"*"} to={"/"} />
   </Switch>
 );
 
 const AppPresenter: React.SFC<IProps> = ({ isLoggedIn }) => (
   <BrowserRouter>
-    { isLoggedIn ? <p>login</p> : <p>logout</p> }
-    <Routes/>
+    <Routes isLoggedIn={isLoggedIn}/>
   </BrowserRouter>
 );
 

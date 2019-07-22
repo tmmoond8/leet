@@ -1,6 +1,6 @@
 type Message {
   id: Int!
-  nickname: String!
+  user: User!
   text: String!
   createdAt: Float!
 }

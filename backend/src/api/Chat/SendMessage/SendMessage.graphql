@@ -5,5 +5,5 @@ type SendMessageResponse {
 }
 
 type Mutation {
-  SendMessage(nickname: String!, text: String!): SendMessageResponse!
+  SendMessage(userId: Int!, text: String!): SendMessageResponse!
 }

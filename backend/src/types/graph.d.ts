@@ -1,4 +1,4 @@
-export const typeDefs = ["type Message {\n  id: Int!\n  nickname: String!\n  text: String!\n  createdAt: Float!\n}\n\ntype File {\n  name: String!\n  children: [File]\n  content: String!\n}\n\ntype Query {\n  GetFile: File\n  GetMessages: GetMessagesResponse!\n}\n\ntype GetMessagesResponse {\n  ok: Boolean!\n  error: String\n  messages: [Message]\n}\n\ntype Subscription {\n  MessageSubscription: Message\n}\n\ntype SendMessageResponse {\n  ok: Boolean!\n  error: String\n  message: Message\n}\n\ntype Mutation {\n  SendMessage(nickname: String!, text: String!): SendMessageResponse!\n}\n"];
+export const typeDefs = ["type Message {\n  id: Int!\n  user: User!\n  text: String!\n  createdAt: Float!\n}\n\ntype User {\n  id: Int!\n  nickname: String!\n}\n\ntype File {\n  name: String!\n  children: [File]\n  content: String!\n}\n\ntype Query {\n  GetFile: File\n  GetMessages: GetMessagesResponse!\n}\n\ntype GetMessagesResponse {\n  ok: Boolean!\n  error: String\n  messages: [Message]\n}\n\ntype ChatJoinResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype Mutation {\n  ChatJoin(nickname: String!): ChatJoinResponse!\n  SendMessage(userId: Int!, text: String!): SendMessageResponse!\n}\n\ntype Subscription {\n  MessageSubscription: Message\n}\n\ntype SendMessageResponse {\n  ok: Boolean!\n  error: String\n  message: Message\n}\n"];
 /* tslint:disable */
 
 export interface Query {
@@ -20,18 +20,34 @@ export interface GetMessagesResponse {
 
 export interface Message {
   id: number;
-  nickname: string;
+  user: User;
   text: string;
   createdAt: number;
 }
 
+export interface User {
+  id: number;
+  nickname: string;
+}
+
 export interface Mutation {
+  ChatJoin: ChatJoinResponse;
   SendMessage: SendMessageResponse;
 }
 
-export interface SendMessageMutationArgs {
+export interface ChatJoinMutationArgs {
   nickname: string;
+}
+
+export interface SendMessageMutationArgs {
+  userId: number;
   text: string;
+}
+
+export interface ChatJoinResponse {
+  ok: boolean;
+  error: string | null;
+  token: string | null;
 }
 
 export interface SendMessageResponse {

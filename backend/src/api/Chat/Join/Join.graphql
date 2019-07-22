@@ -1,0 +1,9 @@
+type ChatJoinResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type Mutation {
+  ChatJoin(nickname: String!) : ChatJoinResponse!
+}
