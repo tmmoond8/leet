@@ -1,16 +1,17 @@
+import userManager from '../../../dataManager/UserManager'
 import { createJWT } from '../../../lib';
-import { ChatJoinMutationArgs, ChatJoinResponse, User } from "../../../types/graph";
+import { JoinChatMutationArgs, JoinChatResponse, User } from "../../../types/graph";
 import { Resolvers } from "../../../types/resolvers";
 
 const resolvers: Resolvers = {
   Mutation: {
-    ChatJoin: (_, args: ChatJoinMutationArgs): ChatJoinResponse => {
+    JoinChat: (_, args: JoinChatMutationArgs): JoinChatResponse => {
       const { nickname } = args;
       const newUser: User = {
         id: Math.floor(Math.random() * 27943673),
         nickname
       }
-
+      userManager.addUser(newUser);
       return {
         ok: true,
         error: null,

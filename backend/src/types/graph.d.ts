@@ -1,4 +1,4 @@
-export const typeDefs = ["type File {\n  name: String!\n  children: [File]\n  content: String!\n}\n\ntype Query {\n  GetFile: File\n  GetMessages: GetMessagesResponse!\n}\n\ntype GetMessagesResponse {\n  ok: Boolean!\n  error: String\n  messages: [Message]\n}\n\ntype ChatJoinResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype Mutation {\n  ChatJoin(nickname: String!): ChatJoinResponse!\n  SendMessage(text: String!): SendMessageResponse!\n}\n\ntype Subscription {\n  MessageSubscription: Message\n}\n\ntype SendMessageResponse {\n  ok: Boolean!\n  error: String\n  message: Message\n}\n\ntype Message {\n  id: Int!\n  user: User!\n  text: String!\n  createdAt: Float!\n}\n\ntype User {\n  id: Int!\n  nickname: String!\n}\n"];
+export const typeDefs = ["type File {\n  name: String!\n  children: [File]\n  content: String!\n}\n\ntype Query {\n  GetFile: File\n  GetMessages: GetMessagesResponse!\n}\n\ntype GetMessagesResponse {\n  ok: Boolean!\n  error: String\n  messages: [Message]\n}\n\ntype JoinChatResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype Mutation {\n  JoinChat(nickname: String!): JoinChatResponse!\n  SendMessage(text: String!): SendMessageResponse!\n}\n\ntype Subscription {\n  MessageSubscription: Message\n}\n\ntype SendMessageResponse {\n  ok: Boolean!\n  error: String\n  message: Message\n}\n\ntype Message {\n  id: Int!\n  user: User!\n  text: String!\n  createdAt: Float!\n}\n\ntype User {\n  id: Int!\n  nickname: String!\n}\n"];
 /* tslint:disable */
 
 export interface Query {
@@ -31,11 +31,11 @@ export interface User {
 }
 
 export interface Mutation {
-  ChatJoin: ChatJoinResponse;
+  JoinChat: JoinChatResponse;
   SendMessage: SendMessageResponse;
 }
 
-export interface ChatJoinMutationArgs {
+export interface JoinChatMutationArgs {
   nickname: string;
 }
 
@@ -43,7 +43,7 @@ export interface SendMessageMutationArgs {
   text: string;
 }
 
-export interface ChatJoinResponse {
+export interface JoinChatResponse {
   ok: boolean;
   error: string | null;
   token: string | null;

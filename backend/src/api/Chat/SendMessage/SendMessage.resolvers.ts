@@ -13,10 +13,9 @@ const resolvers: Resolvers = {
       args: SendMessageMutationArgs,
       { req, pubSub },
     ): SendMessageResponse => {
-      console.log(req.user);
       const { user } = req;
       const { text } = args;
-      if (!!user) {
+      if (!user) {
         return {
           ok: false,
           error: 'not found user',

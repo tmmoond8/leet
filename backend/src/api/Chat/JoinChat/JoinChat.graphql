@@ -1,9 +1,9 @@
-type ChatJoinResponse {
+type JoinChatResponse {
   ok: Boolean!
   error: String
   token: String
 }
 
 type Mutation {
-  ChatJoin(nickname: String!) : ChatJoinResponse!
+  JoinChat(nickname: String!) : JoinChatResponse!
 }

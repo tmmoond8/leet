@@ -14,6 +14,10 @@ export const GET_FILE = gql`
           children {
             name
             content
+            children {
+              name
+              content
+            }
           }
         }
       }

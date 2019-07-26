@@ -7,7 +7,10 @@ export const GET_MESSAGES = gql`
       error
       messages {
         text
-        nickname
+        user {
+          nickname
+          id
+        }
         id
         createdAt
       }
@@ -16,13 +19,16 @@ export const GET_MESSAGES = gql`
 `;
 
 export const SEND_MESSAGE = gql`
-  mutation sendMessage($nickName: String!, $text: String!) {
-    SendMessage(nickname: $nickName, text: $text) {
+  mutation sendMessage($text: String!) {
+    SendMessage(text: $text) {
     ok
     error
     message {
       id
-      nickname
+      user {
+        nickname
+        id
+      }
       text
       createdAt
     }
@@ -30,14 +36,26 @@ export const SEND_MESSAGE = gql`
 }
 `;
 
-
 export const SUBSCRIBE_TO_MESSAGES = gql`
   subscription messageSubscription {
     MessageSubscription {
       id
+      user {
+        nickname
+        id
+      }
       text
-      nickname
       createdAt
+    }
+  }
+`;
+
+export const JOIN_CHAT = gql`
+  mutation joinChat($nickname: String!) {
+    JoinChat(nickname: $nickname) {
+      ok
+      error
+      token
     }
   }
 `;

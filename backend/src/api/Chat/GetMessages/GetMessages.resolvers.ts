@@ -1,13 +1,21 @@
+import ChatData from '../../../dataManager/ChatManager';
 import {
   GetMessagesResponse
 } from "../../../types/graph";
 import { Resolvers } from "../../../types/resolvers";
-import ChatData from '../../../dataManager/ChatManager';
 
 
 const resolvers: Resolvers = {
   Query: {
-    GetMessages: (): GetMessagesResponse => {
+    GetMessages: (_, __, { req }): GetMessagesResponse => {
+      const { user } = req;
+      if (!user) {
+        return {
+          ok: false,
+          error: 'need to login',
+          messages: null
+        }
+      }
       return {
         ok: true,
         error: null,

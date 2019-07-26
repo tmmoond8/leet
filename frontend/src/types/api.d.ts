@@ -6,10 +6,17 @@
 // GraphQL query operation: getFile
 // ====================================================
 
+export interface getFile_GetFile_children_children_children_children {
+  __typename: "File";
+  name: string;
+  content: string;
+}
+
 export interface getFile_GetFile_children_children_children {
   __typename: "File";
   name: string;
   content: string;
+  children: (getFile_GetFile_children_children_children_children | null)[] | null;
 }
 
 export interface getFile_GetFile_children_children {
@@ -45,10 +52,16 @@ export interface getFile {
 // GraphQL query operation: getMessages
 // ====================================================
 
+export interface getMessages_GetMessages_messages_user {
+  __typename: "User";
+  nickname: string;
+  id: number;
+}
+
 export interface getMessages_GetMessages_messages {
   __typename: "Message";
   text: string;
-  nickname: string;
+  user: getMessages_GetMessages_messages_user;
   id: number;
   createdAt: number;
 }
@@ -69,33 +82,19 @@ export interface getMessages {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL subscription operation: messageUpdate
-// ====================================================
-
-export interface messageUpdate_MessageSubscription {
-  __typename: "Message";
-  id: number;
-  text: string;
-  nickname: string;
-  createdAt: number;
-}
-
-export interface messageUpdate {
-  MessageSubscription: messageUpdate_MessageSubscription | null;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL mutation operation: sendMessage
 // ====================================================
+
+export interface sendMessage_SendMessage_message_user {
+  __typename: "User";
+  nickname: string;
+  id: number;
+}
 
 export interface sendMessage_SendMessage_message {
   __typename: "Message";
   id: number;
-  nickname: string;
+  user: sendMessage_SendMessage_message_user;
   text: string;
   createdAt: number;
 }
@@ -112,7 +111,6 @@ export interface sendMessage {
 }
 
 export interface sendMessageVariables {
-  nickName: string;
   text: string;
 }
 
@@ -124,16 +122,45 @@ export interface sendMessageVariables {
 // GraphQL subscription operation: messageSubscription
 // ====================================================
 
+export interface messageSubscription_MessageSubscription_user {
+  __typename: "User";
+  nickname: string;
+  id: number;
+}
+
 export interface messageSubscription_MessageSubscription {
   __typename: "Message";
   id: number;
+  user: messageSubscription_MessageSubscription_user;
   text: string;
-  nickname: string;
   createdAt: number;
 }
 
 export interface messageSubscription {
   MessageSubscription: messageSubscription_MessageSubscription | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: joinChat
+// ====================================================
+
+export interface joinChat_JoinChat {
+  __typename: "JoinChatResponse";
+  ok: boolean;
+  error: string | null;
+  token: string | null;
+}
+
+export interface joinChat {
+  JoinChat: joinChat_JoinChat;
+}
+
+export interface joinChatVariables {
+  nickname: string;
 }
 
 /* tslint:disable */

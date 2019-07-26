@@ -12,12 +12,12 @@ const Routes = ({ isLoggedIn }) => (
   <Switch>
     <Route path={"/"} exact={true} component={Home}/>
     <Route path={"/filetree"} exact={true} component={FileTree}/>
-    <Route path={"/chat"} exact={true} component={Chat} isLoggined={isLoggedIn}/>
+    <Route path={"/chat"} exact={true} render={props => <Chat {...props} isLoggined={isLoggedIn}/>}/>
     <Redirect from={"*"} to={"/"} />
   </Switch>
 );
 
-const AppPresenter: React.SFC<IProps> = ({ isLoggedIn }) => (
+const AppPresenter: React.SFC<IProps> = ({ isLoggedIn }) => ( console.log(isLoggedIn),
   <BrowserRouter>
     <Routes isLoggedIn={isLoggedIn}/>
   </BrowserRouter>

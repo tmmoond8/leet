@@ -42,7 +42,6 @@ class App {
     const token = req.get("X-JWT");
     if (token) {
       const user = decodeJWT(token);
-      console.log(user);
       req.user = user;
     }
     next();
