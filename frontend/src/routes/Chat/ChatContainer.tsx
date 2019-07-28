@@ -5,6 +5,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { LOG_USER_IN, LOG_USER_OUT } from '../../innerQueries';
 import {
   getMessages,
+  getUser,
   joinChat,
   joinChatVariables,
   sendMessage,
@@ -12,6 +13,7 @@ import {
 } from '../../types/api';
 import {
   GET_MESSAGES,
+  GET_USER,
   JOIN_CHAT,
   SEND_MESSAGE,
   SUBSCRIBE_TO_MESSAGES,
@@ -28,6 +30,7 @@ interface IState {
 }
 
 class ChatQuery extends Query<getMessages> {}
+class UserQuery extends Query<getUser> {}
 class SendMessageMutation extends Mutation<sendMessage, sendMessageVariables> {}
 class JoinChatMutation extends Mutation<joinChat, joinChatVariables> {}
 
@@ -49,64 +52,68 @@ export default class ChatContainer extends React.Component<IProps, IState> {
 
     return (
       isLoggined ? (
-        <ChatQuery 
-          query={GET_MESSAGES}
-        >
-          {({ data, subscribeToMore }) => {
-            const subscribeToMoreOptions: SubscribeToMoreOptions = {
-              document: SUBSCRIBE_TO_MESSAGES,
-              updateQuery: (prev, { subscriptionData }) => {
-                if (!subscriptionData.data) {
-                  return prev;
-                }
-                const {
-                  data: { MessageSubscription } 
-                } = subscriptionData;
-                const {
-                  GetMessages: {
-                    messages
+        <UserQuery query={GET_USER}>
+          {({ data: { GetUser: { user=null } = {} } = { GetUser: { user: null } } }) => (
+            <ChatQuery 
+              query={GET_MESSAGES}
+            >
+              {({ data, subscribeToMore }) => {
+                const subscribeToMoreOptions: SubscribeToMoreOptions = {
+                  document: SUBSCRIBE_TO_MESSAGES,
+                  updateQuery: (prev, { subscriptionData }) => {
+                    if (!subscriptionData.data) {
+                      return prev;
+                    }
+                    const {
+                      data: { MessageSubscription } 
+                    } = subscriptionData;
+                    const {
+                      GetMessages: {
+                        messages
+                      }
+                    } = prev;
+                    const newMessageId = MessageSubscription.id;
+                    const latestMessageId = messages.length > 0 ? messages[messages.length - 1].id : -1;
+                    if(latestMessageId === newMessageId) {
+                      return prev;
+                    }
+                    const updatedData = Object.assign({}, prev, {
+                      GetMessages: {
+                        messages: [
+                          ...messages,
+                          MessageSubscription
+                        ]
+                      }
+                    });
+                    return updatedData;
                   }
-                } = prev;
-                const newMessageId = MessageSubscription.id;
-                const latestMessageId = messages.length > 0 ? messages[messages.length - 1].id : -1;
-                if(latestMessageId === newMessageId) {
-                  return prev;
                 }
-                const updatedData = Object.assign({}, prev, {
-                  GetMessages: {
-                    messages: [
-                      ...messages,
-                      MessageSubscription
-                    ]
-                  }
-                });
-                return updatedData;
-              }
-            }
-            subscribeToMore(subscribeToMoreOptions);
-            return (
-              <Mutation mutation={LOG_USER_OUT}>
-                {logoutMutation => (
-                  <SendMessageMutation mutation={SEND_MESSAGE}>
-                    {sendMessageMutation => {
-                      this.sendMessageMutation = sendMessageMutation;
-                      return (
-                        <ChatPresenter 
-                          inputText={message}
-                          messageData={data}
-                          onChangeInput={this.handleChangeInput}
-                          onSubmitMessage={this.handleSubmitMessage}
-                          nickname={nickname}
-                          onLogout={logoutMutation}
-                        />
-                      );
-                    }}
-                  </SendMessageMutation>
-                )}
-              </Mutation>
-            )
-          }}
-          </ChatQuery>
+                subscribeToMore(subscribeToMoreOptions);
+                return (
+                  <Mutation mutation={LOG_USER_OUT}>
+                    {logoutMutation => (
+                      <SendMessageMutation mutation={SEND_MESSAGE}>
+                        {sendMessageMutation => {
+                          this.sendMessageMutation = sendMessageMutation;
+                          return (
+                            <ChatPresenter 
+                              inputText={message}
+                              messageData={data}
+                              onChangeInput={this.handleChangeInput}
+                              onSubmitMessage={this.handleSubmitMessage}
+                              user={user}
+                              onLogout={logoutMutation}
+                            />
+                          );
+                        }}
+                      </SendMessageMutation>
+                    )}
+                  </Mutation>
+                )
+              }}
+            </ChatQuery>
+          )}
+        </UserQuery>
       ) : (
         <Mutation mutation={LOG_USER_IN}>
           {logUserIn => (

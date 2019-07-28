@@ -1,8 +1,9 @@
 import React from 'react';
 import styled, { withProps } from '../../typed-components';
+import { getUser_GetUser_user } from '../../types/api';
 
 interface IProps {
-  nickname: string;
+  user: getUser_GetUser_user;
   createdAt: number;
   text: string;
   mine: boolean;
@@ -46,28 +47,17 @@ const Mesage = withProps<IProps, HTMLDivElement>(styled.li)`
 const Message = (props: IProps) => {
   const { 
     createdAt,
-    nickname,
+    user,
     text,
     mine,
   } = props;
   const createdDate = new Date(createdAt);
-  const dateModel = {
-    year: createdDate.getFullYear(),
-    month: createdDate.getMonth() + 1,
-    date: createdDate.getDate(),
-    hour: createdDate.getHours(),
-    minute: createdDate.getMinutes()
-  }
-  const { hour, minute } = dateModel;
 
   return (
     <Mesage mine={mine}>
       <p className="meta">
-        <span className="nickname">{nickname}</span>
-        <span className="time">
-          {hour > 12 ? 'AM' : 'PM'}
-          {` ${Math.floor(hour%13 + hour/13)}:${minute}`}
-        </span>
+        <span className="nickname">{user.nickname}</span>
+        <span className="time">{createdDate.toLocaleString()}</span>
       </p>
       <p className="text">{text}</p>
     </Mesage>

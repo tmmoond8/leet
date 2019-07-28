@@ -7,12 +7,19 @@ type File {
 type Query {
   GetFile: File
   GetMessages: GetMessagesResponse!
+  GetUser: GetUserResponse!
 }
 
 type GetMessagesResponse {
   ok: Boolean!
   error: String
   messages: [Message]
+}
+
+type GetUserResponse {
+  ok: Boolean!
+  error: String
+  user: User
 }
 
 type JoinChatResponse {

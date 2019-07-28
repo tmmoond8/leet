@@ -3,15 +3,15 @@ import { MutationFn } from 'react-apollo';
 import Input from '../../components/Input';
 import Message from '../../components/Message';
 import styled from '../../typed-components';
-import { IMessage } from '../../types/models';
+import { getMessages_GetMessages_messages , getUser_GetUser_user } from '../../types/api';
 
 interface IProps {
   inputText: string;
   messageData : any;
   onChangeInput: React.ChangeEventHandler<HTMLInputElement>;
   onSubmitMessage: (event: any) => void;
-  nickname: string;
   onLogout: MutationFn;
+  user: getUser_GetUser_user | null;
 }
 
 const MessageInputWrapper = styled.div`
@@ -22,6 +22,7 @@ const MessageInputWrapper = styled.div`
 const MessageList = styled.ul`
   flex: 1;
   padding: 1rem;
+  overflow: scroll;
 `;
 
 const Wrapper = styled.div`
@@ -31,15 +32,15 @@ const Wrapper = styled.div`
 `;
 
 const ChatPresenter = (props: IProps) => {
-  const { inputText, messageData, onChangeInput, onSubmitMessage, nickname, onLogout } = props;
+  const { inputText, messageData, onChangeInput, onSubmitMessage, onLogout, user } = props;
   if (!messageData || !messageData.GetMessages) {
-    return <h2>fail to fetch data.</h2>;
+    return <h2>loading</h2>;
   }
 
   if (!messageData.GetMessages.ok) {
     onLogout();
   }
-  
+
   const { 
     GetMessages: {
       messages
@@ -48,11 +49,12 @@ const ChatPresenter = (props: IProps) => {
 
   return (
     <Wrapper>
-      {nickname}
       <MessageList>
         {
-          Array.isArray(messages) && 
-          messages.map((message: IMessage) => !!message && <Message {...message} mine={true} key={message.id}/>)
+          Array.isArray(messages) && !!user &&
+          messages.map((message: getMessages_GetMessages_messages) => (
+            <Message {...message} mine={message.user.id === user.id} key={message.id}/>
+          ))
         }
       </MessageList>
       <MessageInputWrapper>

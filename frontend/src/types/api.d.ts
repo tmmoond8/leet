@@ -167,6 +167,31 @@ export interface joinChatVariables {
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL query operation: getUser
+// ====================================================
+
+export interface getUser_GetUser_user {
+  __typename: "User";
+  id: number;
+  nickname: string;
+}
+
+export interface getUser_GetUser {
+  __typename: "GetUserResponse";
+  ok: boolean;
+  error: string | null;
+  user: getUser_GetUser_user | null;
+}
+
+export interface getUser {
+  GetUser: getUser_GetUser;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================

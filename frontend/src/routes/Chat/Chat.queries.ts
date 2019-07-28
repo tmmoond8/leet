@@ -59,3 +59,16 @@ export const JOIN_CHAT = gql`
     }
   }
 `;
+
+export const GET_USER = gql`
+  query getUser {
+    GetUser {
+      ok
+      error
+      user {
+        id
+        nickname
+      }
+    }
+  }
+`;
