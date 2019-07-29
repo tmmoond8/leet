@@ -60,9 +60,9 @@ export interface getMessages_GetMessages_messages_user {
 
 export interface getMessages_GetMessages_messages {
   __typename: "Message";
+  id: number;
   text: string;
   user: getMessages_GetMessages_messages_user;
-  id: number;
   createdAt: number;
 }
 
@@ -94,8 +94,8 @@ export interface sendMessage_SendMessage_message_user {
 export interface sendMessage_SendMessage_message {
   __typename: "Message";
   id: number;
-  user: sendMessage_SendMessage_message_user;
   text: string;
+  user: sendMessage_SendMessage_message_user;
   createdAt: number;
 }
 
@@ -131,8 +131,8 @@ export interface messageSubscription_MessageSubscription_user {
 export interface messageSubscription_MessageSubscription {
   __typename: "Message";
   id: number;
-  user: messageSubscription_MessageSubscription_user;
   text: string;
+  user: messageSubscription_MessageSubscription_user;
   createdAt: number;
 }
 

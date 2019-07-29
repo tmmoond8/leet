@@ -6,12 +6,12 @@ export const GET_MESSAGES = gql`
       ok
       error
       messages {
+        id
         text
         user {
           nickname
           id
         }
-        id
         createdAt
       }
     }
@@ -25,11 +25,11 @@ export const SEND_MESSAGE = gql`
     error
     message {
       id
+      text
       user {
         nickname
         id
       }
-      text
       createdAt
     }
   }
@@ -40,11 +40,11 @@ export const SUBSCRIBE_TO_MESSAGES = gql`
   subscription messageSubscription {
     MessageSubscription {
       id
+      text
       user {
         nickname
         id
       }
-      text
       createdAt
     }
   }

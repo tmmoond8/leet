@@ -17,7 +17,7 @@ const Routes = ({ isLoggedIn }) => (
   </Switch>
 );
 
-const AppPresenter: React.SFC<IProps> = ({ isLoggedIn }) => ( console.log(isLoggedIn),
+const AppPresenter: React.SFC<IProps> = ({ isLoggedIn }) => (
   <BrowserRouter>
     <Routes isLoggedIn={isLoggedIn}/>
   </BrowserRouter>

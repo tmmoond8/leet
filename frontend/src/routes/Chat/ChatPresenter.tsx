@@ -2,7 +2,7 @@ import React from 'react';
 import { MutationFn } from 'react-apollo';
 import Input from '../../components/Input';
 import Message from '../../components/Message';
-import styled from '../../typed-components';
+import styled, { withProps } from '../../typed-components';
 import { getMessages_GetMessages_messages , getUser_GetUser_user } from '../../types/api';
 
 interface IProps {
@@ -19,7 +19,7 @@ const MessageInputWrapper = styled.div`
   margin: 40px 20px;
 `;
 
-const MessageList = styled.ul`
+const MessageList = withProps<{ref: any}, HTMLUListElement>(styled.ul)`
   flex: 1;
   padding: 1rem;
   overflow: scroll;
@@ -33,6 +33,14 @@ const Wrapper = styled.div`
 
 const ChatPresenter = (props: IProps) => {
   const { inputText, messageData, onChangeInput, onSubmitMessage, onLogout, user } = props;
+  const messagesRef  = React.createRef<HTMLUListElement>();
+  React.useEffect(() => {  
+    const current: HTMLUListElement | null = messagesRef.current;
+    if (current !== null) {
+      current.scrollTop = current.scrollHeight;
+    }
+  });
+
   if (!messageData || !messageData.GetMessages) {
     return <h2>loading</h2>;
   }
@@ -46,10 +54,11 @@ const ChatPresenter = (props: IProps) => {
       messages
     } 
   } = messageData;
+  
 
   return (
     <Wrapper>
-      <MessageList>
+      <MessageList ref={messagesRef}>
         {
           Array.isArray(messages) && !!user &&
           messages.map((message: getMessages_GetMessages_messages) => (

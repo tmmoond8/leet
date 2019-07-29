@@ -77,14 +77,8 @@ export default class ChatContainer extends React.Component<IProps, IState> {
                     if(latestMessageId === newMessageId) {
                       return prev;
                     }
-                    const updatedData = Object.assign({}, prev, {
-                      GetMessages: {
-                        messages: [
-                          ...messages,
-                          MessageSubscription
-                        ]
-                      }
-                    });
+                    const updatedData = Object.assign({}, prev);
+                    updatedData.GetMessages.messages = [...messages, MessageSubscription];
                     return updatedData;
                   }
                 }
@@ -181,9 +175,5 @@ export default class ChatContainer extends React.Component<IProps, IState> {
         console.error(error);
       }
     }
-  }
-
-  public handleLogout = () => {
-    
   }
 }
