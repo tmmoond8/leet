@@ -8,7 +8,7 @@ type Query {
   GetFile: File
   GetMessages: GetMessagesResponse!
   GetUser: GetUserResponse!
-  GetBasicInitial(level: Int!): GetQuizInitialResponse!
+  GetBasicInitial: GetQuizInitialResponse!
 }
 
 type GetMessagesResponse {
@@ -59,6 +59,8 @@ type User {
 type QuizInitial {
   quiz: String!
   syllables: [String]!
+  id: Int!
+  level: Int!
 }
 
 type GetQuizInitialResponse {

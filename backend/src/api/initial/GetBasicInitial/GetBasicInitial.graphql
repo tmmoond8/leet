@@ -1,6 +1,8 @@
 type QuizInitial {
   quiz: String!
   syllables: [String]!
+  id: Int!
+  level: Int!
 }
 
 type GetQuizInitialResponse {
@@ -10,5 +12,5 @@ type GetQuizInitialResponse {
 }
 
 type Query {
-  GetBasicInitial(level: Int!): GetQuizInitialResponse!
+  GetBasicInitial: GetQuizInitialResponse!
 }
