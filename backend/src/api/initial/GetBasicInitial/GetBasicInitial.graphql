@@ -1,0 +1,14 @@
+type QuizInitial {
+  quiz: String!
+  Syllables: [String]!
+}
+
+type GetQuizInitialResponse {
+  ok: Boolean!
+  error: String
+  data: [QuizInitial]
+}
+
+type Query {
+  GetBasicInitial(level: Int!): GetQuizInitialResponse!
+}
