@@ -8,7 +8,7 @@ const {
 } = process.env;
 
 interface Initial {
-  index: number;
+  id: number;
   Timestamp: Date;
   quiz: string;
   answer: string;
@@ -17,7 +17,7 @@ interface Initial {
 }
 
 class InitialManager {
-  private basicQuiz: object;
+  private basicQuiz: Initial[];
   private dictionary: object;
   private initialData: object;
 
@@ -33,21 +33,18 @@ class InitialManager {
     this.basicQuiz = this.makeBasicQuiz(data);
   }
 
-  makeBasicQuiz(data: Initial[]) {
+  makeBasicQuiz(data: Initial[]): Initial[] {
     const basicQuiz = data.filter(i => i.level > 0)
-      .reduce((accum, i) => {
-        accum[i.level] = (accum[i.level] || []).concat({
-          ...i,
-          syllables: this.createSyllables(i)
-        });
-        return accum;
-      }, {});
+      .map((i: Initial) => ({
+        ...i,
+        syllables: this.createSyllables(i)
+      }));
     return basicQuiz;
   }
 
   createSyllables(initial: Initial) {
     const { answer, level, quiz } = initial;
-    const size = 10;
+    const size = 12;
     const left = ['어', '워', '분', '코', '노', '가', '마', '자', '아', '그', '문', '준', '생', '예', '시', '소', '별', '비'];
     const syllables = new Set(answer.split(''));
     for (let i = 0; i < level; i++) {
@@ -72,15 +69,11 @@ class InitialManager {
   }
 
   // 단계 값을 받아서 퀴즈를 리턴
-  getBasicQuiz(level: number) {
+  getBasicQuiz() {
     if (!this.initialData) {
       throw Error('not initialized');
     }
-    const basic = this.basicQuiz[level];
-    if (!basic) {
-      throw Error(`can't find`);
-    }
-    return basic;
+    return this.basicQuiz;
   }
 }
 
