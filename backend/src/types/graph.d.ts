@@ -1,4 +1,4 @@
-export const typeDefs = ["type File {\n  name: String!\n  children: [File]\n  content: String!\n}\n\ntype Query {\n  GetFile: File\n  GetMessages: GetMessagesResponse!\n  GetUser: GetUserResponse!\n  GetBasicInitial(level: Int!): GetQuizInitialResponse!\n}\n\ntype GetMessagesResponse {\n  ok: Boolean!\n  error: String\n  messages: [Message]\n}\n\ntype GetUserResponse {\n  ok: Boolean!\n  error: String\n  user: User\n}\n\ntype JoinChatResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype Mutation {\n  JoinChat(nickname: String!): JoinChatResponse!\n  SendMessage(text: String!): SendMessageResponse!\n}\n\ntype Subscription {\n  MessageSubscription: Message\n}\n\ntype SendMessageResponse {\n  ok: Boolean!\n  error: String\n  message: Message\n}\n\ntype Message {\n  id: Int!\n  user: User!\n  text: String!\n  createdAt: Float!\n}\n\ntype User {\n  id: Int!\n  nickname: String!\n}\n\ntype QuizInitial {\n  quiz: String!\n  Syllables: [String]!\n}\n\ntype GetQuizInitialResponse {\n  ok: Boolean!\n  error: String\n  data: [QuizInitial]\n}\n"];
+export const typeDefs = ["type File {\n  name: String!\n  children: [File]\n  content: String!\n}\n\ntype Query {\n  GetFile: File\n  GetMessages: GetMessagesResponse!\n  GetUser: GetUserResponse!\n  GetBasicInitial(level: Int!): GetQuizInitialResponse!\n}\n\ntype GetMessagesResponse {\n  ok: Boolean!\n  error: String\n  messages: [Message]\n}\n\ntype GetUserResponse {\n  ok: Boolean!\n  error: String\n  user: User\n}\n\ntype JoinChatResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype Mutation {\n  JoinChat(nickname: String!): JoinChatResponse!\n  SendMessage(text: String!): SendMessageResponse!\n}\n\ntype Subscription {\n  MessageSubscription: Message\n}\n\ntype SendMessageResponse {\n  ok: Boolean!\n  error: String\n  message: Message\n}\n\ntype Message {\n  id: Int!\n  user: User!\n  text: String!\n  createdAt: Float!\n}\n\ntype User {\n  id: Int!\n  nickname: String!\n}\n\ntype QuizInitial {\n  quiz: String!\n  syllables: [String]!\n}\n\ntype GetQuizInitialResponse {\n  ok: Boolean!\n  error: String\n  data: [QuizInitial]\n}\n"];
 /* tslint:disable */
 
 export interface Query {
@@ -50,7 +50,7 @@ export interface GetQuizInitialResponse {
 
 export interface QuizInitial {
   quiz: string;
-  Syllables: Array<string>;
+  syllables: Array<string>;
 }
 
 export interface Mutation {
