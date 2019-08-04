@@ -1,6 +1,6 @@
 type QuizInitial {
   quiz: String!
-  Syllables: [String]!
+  syllables: [String]!
 }
 
 type GetQuizInitialResponse {
