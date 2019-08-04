@@ -1,6 +1,6 @@
-# graphql-yoga-react-apollo-ts-biolerplate
+# NewV
 
-> this is a sample project for using the GraphQL.
+> 야민정음, 급식체, 신조어 퀴즈
 
 ## Project Stacks
 ---
