@@ -39,7 +39,6 @@ interface IProps {
 
 const OnlyMobile = (props: IProps) => {
   const { children } = props;
-  console.log(children);
   return (
     <ResponsibleApp>
       <div>
