@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { withProps } from '../../typed-components';
+import styled, { withProps } from '../../styles/typed-components';
 import { getUser_GetUser_user } from '../../types/api';
 
 interface IProps {

@@ -1,9 +1,9 @@
 import React from "react";
-import styled from "../../typed-components";
+import styled from "../../styles/typed-components";
 
 const Container = styled.input`
   border: none;
-  border-bottom: 2px solid ${props => props.theme.greyColor};
+  border-bottom: 2px solid ${props => props.theme.color.grey};
   font-size: 20px;
   width: 100%;
   padding-bottom: 10px;
@@ -17,7 +17,7 @@ const Container = styled.input`
     outline: none;
   }
   &::placeholder {
-    color: ${props => props.theme.greyColor};
+    color: ${props => props.theme.color.grey};
     font-weight: 300;
   }
 `;

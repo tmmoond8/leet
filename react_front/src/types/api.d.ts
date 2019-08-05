@@ -6,37 +6,14 @@
 // GraphQL query operation: getFile
 // ====================================================
 
-export interface getFile_GetFile_children_children_children_children {
-  __typename: "File";
-  name: string;
-  content: string;
-}
-
-export interface getFile_GetFile_children_children_children {
-  __typename: "File";
-  name: string;
-  content: string;
-  children: (getFile_GetFile_children_children_children_children | null)[] | null;
-}
-
-export interface getFile_GetFile_children_children {
-  __typename: "File";
-  name: string;
-  content: string;
-  children: (getFile_GetFile_children_children_children | null)[] | null;
-}
-
 export interface getFile_GetFile_children {
   __typename: "File";
   name: string;
-  content: string;
-  children: (getFile_GetFile_children_children | null)[] | null;
 }
 
 export interface getFile_GetFile {
   __typename: "File";
   name: string;
-  content: string;
   children: (getFile_GetFile_children | null)[] | null;
 }
 
@@ -186,6 +163,33 @@ export interface getUser_GetUser {
 
 export interface getUser {
   GetUser: getUser_GetUser;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: getInitial
+// ====================================================
+
+export interface getInitial_GetInitial_data {
+  __typename: "Initial";
+  quiz: string;
+  syllables: (string | null)[];
+  id: number;
+  level: number;
+}
+
+export interface getInitial_GetInitial {
+  __typename: "GetInitialResponse";
+  ok: boolean;
+  error: string | null;
+  data: (getInitial_GetInitial_data | null)[] | null;
+}
+
+export interface getInitial {
+  GetInitial: getInitial_GetInitial;
 }
 
 /* tslint:disable */
