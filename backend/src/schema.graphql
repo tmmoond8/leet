@@ -8,7 +8,8 @@ type Query {
   GetFile: File
   GetMessages: GetMessagesResponse!
   GetUser: GetUserResponse!
-  GetBasicInitial: GetQuizInitialResponse!
+  GetInitial: GetInitialResponse!
+  SubmitAnswerInitial(id: Int!, answer: String!): SubmitAnswerInitialResponse!
 }
 
 type GetMessagesResponse {
@@ -56,15 +57,21 @@ type User {
   nickname: String!
 }
 
-type QuizInitial {
+type Initial {
   quiz: String!
   syllables: [String]!
   id: Int!
   level: Int!
 }
 
-type GetQuizInitialResponse {
+type GetInitialResponse {
   ok: Boolean!
   error: String
-  data: [QuizInitial]
+  data: [Initial]
+}
+
+type SubmitAnswerInitialResponse {
+  ok: Boolean!
+  error: String
+  result: Boolean
 }

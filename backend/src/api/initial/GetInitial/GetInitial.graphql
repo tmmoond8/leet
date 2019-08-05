@@ -1,16 +1,16 @@
-type QuizInitial {
+type Initial {
   quiz: String!
   syllables: [String]!
   id: Int!
   level: Int!
 }
 
-type GetQuizInitialResponse {
+type GetInitialResponse {
   ok: Boolean!
   error: String
-  data: [QuizInitial]
+  data: [Initial]
 }
 
 type Query {
-  GetBasicInitial: GetQuizInitialResponse!
+  GetInitial: GetInitialResponse!
 }

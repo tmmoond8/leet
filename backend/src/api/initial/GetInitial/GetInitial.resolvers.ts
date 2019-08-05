@@ -1,12 +1,12 @@
 import initialData from '../../../dataManager/InitalManager';
-import { GetQuizInitialResponse } from "../../../types/graph";
+import { GetInitialResponse } from "../../../types/graph";
 import { Resolvers } from "../../../types/resolvers";
 
 const resolvers: Resolvers = {
   Query: {
-    GetBasicInitial: (_, __): GetQuizInitialResponse => {
+    GetInitial: (_, __): GetInitialResponse => {
       try {
-        const quiz = initialData.getBasicQuiz();
+        const quiz = initialData.getInitial();
         return {
           ok: true,
           data: quiz,

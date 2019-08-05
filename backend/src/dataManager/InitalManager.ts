@@ -2,7 +2,6 @@ require('dotenv').config();
 import axios from 'axios';
 import * as hangul from 'hangul-js';
 
-
 const {
   GOOGLE_SHEET_URL
 } = process.env;
@@ -17,9 +16,8 @@ interface Initial {
 }
 
 class InitialManager {
-  private basicQuiz: Initial[];
+  private initialData: Initial[];
   private dictionary: object;
-  private initialData: object;
 
   constructor() {
     this._config();
@@ -28,9 +26,8 @@ class InitialManager {
   async _config() {
     const result = await axios.get(`${GOOGLE_SHEET_URL}?sheetName=initial`);
     const data: Initial[] = result.data.data;
-    this.initialData = data;
     this.makeDictionary(data);
-    this.basicQuiz = this.makeBasicQuiz(data);
+    this.initialData = this.makeBasicQuiz(data);
   }
 
   makeBasicQuiz(data: Initial[]): Initial[] {
@@ -69,11 +66,22 @@ class InitialManager {
   }
 
   // 단계 값을 받아서 퀴즈를 리턴
-  getBasicQuiz() {
+  getInitial() {
     if (!this.initialData) {
       throw Error('not initialized');
     }
-    return this.basicQuiz;
+    return this.initialData;
+  }
+
+  checkAnswer(id: number, answer: string) {
+    if (!this.initialData) {
+      throw Error('not initialized');
+    }
+    const inital = this.initialData.find(i => i.id === id);
+    if (!inital) {
+      throw Error(`not exist that id: ${id}`);
+    }
+    return inital.answer === answer;
   }
 }
 
