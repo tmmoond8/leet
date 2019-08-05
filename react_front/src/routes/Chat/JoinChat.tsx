@@ -1,12 +1,12 @@
 import React from 'react';
 import Input from '../../components/Input';
-import styled from '../../typed-components';
+import styled from '../../styles/typed-components';
 
 const StyledJoinChat = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   justify-content: center;
   align-items: center;
   

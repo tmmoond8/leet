@@ -2,7 +2,7 @@ import React from 'react';
 import { MutationFn } from 'react-apollo';
 import Input from '../../components/Input';
 import Message from '../../components/Message';
-import styled, { withProps } from '../../typed-components';
+import styled, { withProps } from '../../styles/typed-components';
 import { getMessages_GetMessages_messages , getUser_GetUser_user } from '../../types/api';
 
 interface IProps {

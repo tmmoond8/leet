@@ -1,14 +1,12 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import styled from '../../typed-components';
+import styled from '../../styles/typed-components';
 
 const MenuList = styled.ul`
-  width: 100vw;
-  height: 100vh;
-  background-color: black;
-  padding: 100px 25vw;
+  width: 100%;
+  height: 100%;
+  padding: 100px 25%;
   font-size: 40px;
-  color: white;
 
   li + li {
     padding-top: 32px;
@@ -25,11 +23,8 @@ const MenuItem = (props) => (
 
 const HomePresenter = ()  => (
   <MenuList>
-    <MenuItem to="/chat">
-      Chat
-    </MenuItem>
-    <MenuItem to="/filetree">
-      File Tree
+    <MenuItem to="/tutorial">
+      기본 문제
     </MenuItem>
   </MenuList>
 );

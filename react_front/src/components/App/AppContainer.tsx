@@ -1,9 +1,9 @@
 import React from "react";
 import { graphql } from "react-apollo";
-import GlobalStyle from "../../global-styles";
 import { IS_LOGGED_IN } from '../../innerQueries';
-import { theme } from '../../theme';
-import { ThemeProvider } from '../../typed-components';
+import GlobalStyle from "../../styles/global-styles";
+import { theme } from '../../styles/theme';
+import { ThemeProvider } from '../../styles/typed-components';
 import AppPresenter from './AppPresenter';
 
 const AppContainer : any = ({ data })  => (
