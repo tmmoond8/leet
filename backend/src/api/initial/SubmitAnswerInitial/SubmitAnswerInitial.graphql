@@ -1,0 +1,9 @@
+type SubmitAnswerInitialResponse {
+  ok: Boolean!
+  error: String
+  result: Boolean
+}
+
+type Query {
+  SubmitAnswerInitial(id: Int!, answer: String!): SubmitAnswerInitialResponse!
+}
