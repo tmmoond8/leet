@@ -25,6 +25,7 @@ Object.keys(sizes).reduce((acc, label) => {
 const color = {
   blue: "#3498db",
   grey: "#7f8c8d",
+  lightGrey: "#EAE8E8",
   violet: "#9775FA",
 }
 
