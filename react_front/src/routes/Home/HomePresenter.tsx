@@ -15,17 +15,15 @@ const MenuList = styled.ul`
 
 const MenuItem = (props) => (
   <li>
-    <Button value={props.value} onClick={props.onClick}/>
+    <Button value={props.value} href={props.href}/>
   </li>
 )
 
-interface IProps {
-  link: (string) => void;
-}
+interface IProps {}
 
 const HomePresenter = (props: IProps)  => (
   <MenuList>
-    <MenuItem value="기본 문제" onClick={() => props.link("/tutorial")}/>
+    <MenuItem value="기본 문제" href="/tutorial"/>
   </MenuList>
 );
 
