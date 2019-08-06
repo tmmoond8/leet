@@ -26,7 +26,7 @@
     "styled-components": "^4.3.2",
     "styled-reset": "^2.0.16",
     "subscriptions-transport-ws": "^0.9.16",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   },
   "scripts": {
     "dev": "react-scripts start",
@@ -35,7 +35,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "precodegen": "apollo schema:download --endpoint=http://localhost:32000/graphql",
-    "codegen": "apollo codegen:generate src/types/api.d.ts --queries=src/**/*.queries.ts --addTypename --localSchemaFile=schema.json --target typescript --outputFlat"
+    "codegen": "apollo codegen:generate src/types/api.d.ts --queries=src/**/*.queries.ts --addTypename --localSchemaFile=schema.json --target typescript --outputFlat",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -53,7 +55,12 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^5.1.10",
+    "@storybook/addon-links": "^5.1.10",
+    "@storybook/addons": "^5.1.10",
+    "@storybook/react": "^5.1.10",
     "@types/dotenv": "^6.1.1",
+    "@types/storybook__react": "^4.0.2",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.0.0"
