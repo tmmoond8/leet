@@ -1,9 +1,9 @@
 import React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router';
 import styled from '../../styles/typed-components';
 
-interface IProps extends RouteComponentProps {
+interface IProps {
   title: string;
+  onBack: () => void;
 }
 
 const StyledHeader = styled.div`
@@ -28,16 +28,16 @@ const StyledHeader = styled.div`
 `;
 
 const HeaderPresenter = (props: IProps) => {
-  const { title, history } = props;
+  const { title, onBack } = props;
 
   return (
     <StyledHeader>
       <h1>{title}</h1>
-      <span onClick={() => history.goBack()}>
+      <span onClick={onBack}>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" fill="#ffffff"/></svg>
       </span>
     </StyledHeader>
   )
 }
 
-export default withRouter(HeaderPresenter);
+export default HeaderPresenter;
