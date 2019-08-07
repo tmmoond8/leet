@@ -9,6 +9,7 @@ storiesOf('Inital', module)
     quiz="ㅇㅈㄱ" 
     answer="인정" 
     syllables={'자축인묘진사오미신유술해'.split('')}
+    length={2}
     onTouch={action('onTouch')}
     onClear={action('clear')}
   />

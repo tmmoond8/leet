@@ -3,6 +3,7 @@ type Initial {
   syllables: [String]!
   id: Int!
   level: Int!
+  length: Int!
 }
 
 type GetInitialResponse {
