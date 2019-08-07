@@ -9,7 +9,6 @@ type Query {
   GetMessages: GetMessagesResponse!
   GetUser: GetUserResponse!
   GetInitial: GetInitialResponse!
-  SubmitAnswerInitial(id: Int!, answer: String!): SubmitAnswerInitialResponse!
 }
 
 type GetMessagesResponse {
@@ -33,6 +32,7 @@ type JoinChatResponse {
 type Mutation {
   JoinChat(nickname: String!): JoinChatResponse!
   SendMessage(text: String!): SendMessageResponse!
+  SubmitAnswerInitial(id: Int!, answer: String!): SubmitAnswerInitialResponse!
 }
 
 type Subscription {

@@ -1,10 +1,10 @@
 import initialData from '../../../dataManager/InitalManager';
-import { SubmitAnswerInitialQueryArgs, SubmitAnswerInitialResponse } from "../../../types/graph";
+import { SubmitAnswerInitialMutationArgs, SubmitAnswerInitialResponse } from "../../../types/graph";
 import { Resolvers } from "../../../types/resolvers";
 
 const resolvers: Resolvers = {
-  Query: {
-    SubmitAnswerInitial: (_, args: SubmitAnswerInitialQueryArgs): SubmitAnswerInitialResponse => {
+  Mutation: {
+    SubmitAnswerInitial: (_, args: SubmitAnswerInitialMutationArgs): SubmitAnswerInitialResponse => {
       const { id, answer } = args;
       try {
         const result = initialData.checkAnswer(id, answer);

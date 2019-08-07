@@ -1,6 +1,8 @@
-require('dotenv').config();
 import axios from 'axios';
+import dotenv from 'dotenv';
 import * as hangul from 'hangul-js';
+import { arrayShuffle } from '../lib'
+dotenv.config();
 
 const {
   GOOGLE_SHEET_URL
@@ -53,7 +55,7 @@ class InitialManager {
         syllables.add(item)
       });
     }
-    return [...Array.from(syllables), ...left].slice(0, size);
+    return arrayShuffle([...Array.from(syllables), ...left].slice(0, size));
   }
 
   makeDictionary(data: Initial[]) {
