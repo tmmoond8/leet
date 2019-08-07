@@ -30,6 +30,7 @@ height: 100vh;
 
 
 ${props => props.theme.media.phone`
+  height: 85vh;
   & > div {
     width: 100%;
     height: 100%;
