@@ -11,10 +11,11 @@ interface IProps {
 
 const QuizPresenter = (props: IProps) => {
   const { quizs, step, title, next } = props;
-  const { quiz, syllables, length } = quizs[step - 1];
+  const { quiz, syllables, length, id } = quizs[step - 1];
   return (
     <HeaderLayout Header={<Header title={title}/>}>
       <Intial
+        quizId={id}
         next={next}
         quiz={quiz}
         syllables={syllables}

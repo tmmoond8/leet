@@ -4,6 +4,6 @@ type SubmitAnswerInitialResponse {
   result: Boolean
 }
 
-type Query {
+type Mutation {
   SubmitAnswerInitial(id: Int!, answer: String!): SubmitAnswerInitialResponse!
 }

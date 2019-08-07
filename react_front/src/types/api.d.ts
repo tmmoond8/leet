@@ -26,6 +26,30 @@ export interface getFile {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: submitAnswerInitial
+// ====================================================
+
+export interface submitAnswerInitial_SubmitAnswerInitial {
+  __typename: "SubmitAnswerInitialResponse";
+  ok: boolean;
+  error: string | null;
+  result: boolean | null;
+}
+
+export interface submitAnswerInitial {
+  SubmitAnswerInitial: submitAnswerInitial_SubmitAnswerInitial;
+}
+
+export interface submitAnswerInitialVariables {
+  id: number;
+  answer: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: getMessages
 // ====================================================
 
