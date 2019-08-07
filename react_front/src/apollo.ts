@@ -6,6 +6,11 @@ import { HttpLink } from "apollo-link-http";
 import { withClientState } from 'apollo-link-state';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
+import dotenv from 'dotenv';
+dotenv.config();
+
+const { protocol, hostname } = window.location;
+const API_PORT = process.env.REACT_APP_API_PORT;
 
 const getToken = () => {
   const token = localStorage.getItem('jwt');
@@ -24,7 +29,7 @@ const authMiddleware = new ApolloLink((operation: Operation, forward: any) => {
 });
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:32000/graphql"
+  uri: `${protocol}//${hostname}:${API_PORT}/graphql`
 });
 
 const wsLink = new WebSocketLink({
@@ -34,7 +39,7 @@ const wsLink = new WebSocketLink({
     },
     reconnect: true
   },
-  uri: "ws://localhost:32000/subscription"
+  uri: `ws://${hostname}:${API_PORT}/subscription`
 });
 
 const combinedLinks = split(
