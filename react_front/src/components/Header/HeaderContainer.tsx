@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import HeaderPresenter from './HeaderPresenter';
 
-interface IProps extends RouteComponentProps {
+export interface IProps extends RouteComponentProps {
   title: string;
 }
 

@@ -1,16 +1,12 @@
 import React from 'react';
 import Button from '../../components/Button';
-import Header from '../../components/Header';
+import Header, { HeaderLayout } from '../../components/Header';
 import styled from '../../styles/typed-components';
 
 interface IProps {
   tutorials: object;
+  onMoveQuiz: (number) => void;
 }
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
 const TutorialList = styled.ul`
   flex: 1;
@@ -21,18 +17,17 @@ const TutorialList = styled.ul`
 `;
 
 const TutorialPresenter = (props: IProps) => {
-  const { tutorials } = props;
+  const { onMoveQuiz, tutorials } = props;
   return (
-    <Wrapper>
-      <Header title="기본 문제"/>
+    <HeaderLayout Header={<Header title="기본 문제"/>}>
       <TutorialList>
         {Object.keys(tutorials).map((key) => (
           <li key={key}>
-            <Button value={`level ${key}`} href="/" inline={true}/>
+            <Button value={`level ${key}`} onClick={() => onMoveQuiz(key)} inline={true}/>
           </li>
         ))}
       </TutorialList>
-    </Wrapper>
+    </HeaderLayout>
   )
 }
 

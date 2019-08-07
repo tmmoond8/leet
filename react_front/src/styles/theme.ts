@@ -27,6 +27,7 @@ const color = {
   grey: "#7f8c8d",
   lightGrey: "#EAE8E8",
   violet: "#9775FA",
+  deepViolet: "#7048e8",
 }
 
 export const theme = {

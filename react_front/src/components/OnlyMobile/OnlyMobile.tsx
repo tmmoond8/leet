@@ -7,12 +7,12 @@ display: flex;
 justify-content: center;
 align-items: center;
 height: 100vh;
+
 & > div {
   position: relative;
   width: 299px;
   height: 626px;
   margin: 0 auto;
-  border-radius: 0 0 30px 30px;
 
   &::before {
     content: "";
@@ -26,11 +26,20 @@ height: 100vh;
     background-size: contain;
     z-index: -1;
   }
-
-  ${props => props.theme.media.phone`
-    margin: 3rem;
-  `}
 }
+
+
+${props => props.theme.media.phone`
+  & > div {
+    width: 100%;
+    height: 100%;
+    position: static;
+    margin: 0;
+    &::before {
+      content: none;
+    }
+  }
+`}
 `;
 
 interface IProps {

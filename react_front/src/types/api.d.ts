@@ -179,6 +179,7 @@ export interface getInitial_GetInitial_data {
   syllables: (string | null)[];
   id: number;
   level: number;
+  length: number;
 }
 
 export interface getInitial_GetInitial {

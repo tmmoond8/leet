@@ -13,6 +13,7 @@ interface Initial {
   answer: string;
   level: number;
   syllables: string[];
+  length: number;
 }
 
 class InitialManager {
@@ -34,7 +35,8 @@ class InitialManager {
     const basicQuiz = data.filter(i => i.level > 0)
       .map((i: Initial) => ({
         ...i,
-        syllables: this.createSyllables(i)
+        syllables: this.createSyllables(i),
+        length: i.answer.length
       }));
     return basicQuiz;
   }

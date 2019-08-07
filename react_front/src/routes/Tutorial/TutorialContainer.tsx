@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
-import { RouterProps } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 import {
   getInitial,
   getInitial_GetInitial_data
@@ -10,20 +10,26 @@ import {
 } from './Tutorial.queries';
 import TutorialPresenter from './TutorialPresenter';
 
-interface IProps extends RouterProps {}
+interface IProps extends RouteComponentProps<any> {}
 
-interface IState {}
+interface IState {
+  quiz: object;
+}
 
-class TutorialQuery extends Query<getInitial> {}
+class InitialQuery extends Query<getInitial> {}
 
 class TutorialContainer extends Component<IProps, IState> {
+
   render() {
     return (
-      <TutorialQuery query={GET_INITIAL}>
-        {({ data: { GetInitial: { data=[] } = {} } = { GetInitial: { data: [] } } }) => (
-          <TutorialPresenter tutorials={this.leveling(data as any)}/>
-        )}
-      </TutorialQuery>
+      <InitialQuery query={GET_INITIAL}>
+        {({ data: { GetInitial: { data=[] } = {} } = { GetInitial: { data: [] } } }) => {
+          const initialQuiz = this.leveling(data as any);
+          return (
+            <TutorialPresenter tutorials={initialQuiz} onMoveQuiz={this.handleMoveQuiz(initialQuiz)}/>
+          )
+        }}
+      </InitialQuery>
     )
   }
 
@@ -32,6 +38,17 @@ class TutorialContainer extends Component<IProps, IState> {
       accum[i.level] = (accum[i.level] || []).concat(i),
       accum
     ), {})
+  }
+
+  handleMoveQuiz = (initialQuiz) => (level: number) => {
+    const { history } = this.props;
+    history.push({
+      pathname: "/quiz",
+      state: {
+        title: `Level ${level}`,
+        quizs: initialQuiz[level]
+      }
+    })
   }
 }
 
