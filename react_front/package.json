@@ -18,6 +18,7 @@
     "dotenv": "^8.0.0",
     "graphql": "^14.4.2",
     "graphql-tag": "^2.10.1",
+    "http-proxy-middleware": "^0.19.1",
     "react": "^16.8.6",
     "react-apollo": "^2.5.8",
     "react-dom": "^16.8.6",
@@ -29,8 +30,10 @@
     "typescript": "^3.5.3"
   },
   "scripts": {
+    "clean": "rimraf build",
     "dev": "react-scripts start",
-    "start": "react-scripts start",
+    "start": "NODE_ENV=production pm2 start server.js --name newv-react",
+    "prebuild": "yarn clean",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
