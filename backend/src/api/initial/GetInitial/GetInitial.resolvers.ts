@@ -1,4 +1,4 @@
-import initialData from '../../../dataManager/InitalManager';
+import initialData from '../../../dataManager/InitialManager';
 import { GetInitialResponse } from "../../../types/graph";
 import { Resolvers } from "../../../types/resolvers";
 
