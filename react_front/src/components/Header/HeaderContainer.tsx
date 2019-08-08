@@ -4,13 +4,14 @@ import HeaderPresenter from './HeaderPresenter';
 
 export interface IProps extends RouteComponentProps {
   title: string;
+  Right?: React.ReactNode;
 }
 
 class HeaderContainer extends React.Component<IProps> {
   render() {
-    const { title, history } = this.props;
+    const { title, history, Right } = this.props;
     return (
-      <HeaderPresenter title={title} onBack={() => history.goBack()}/>
+      <HeaderPresenter title={title} onBack={() => history.goBack()} Right={Right}/>
     );
   }
 }
