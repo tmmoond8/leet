@@ -10,19 +10,18 @@ const Wrapper = styled.div`
 
 const Quiz = styled.div`
   flex: 2.5;
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-image: url(${quizBg});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   opacity: 0.6;
 
-  & > p {
-    position: absolute;
-    left: 50%;
-    top: 50%;
+  & > span {
     width: 13rem;
-    transform: translate(-50%, -50%);
+    height: 3rem;
     background-color: white;
     font-size: 1.5rem;
     border-radius: 1rem;
@@ -109,7 +108,7 @@ const InitialPresenter = (props: IProps) => {
   return (
     <Wrapper>
       <Quiz>
-        <p>{quiz}</p>
+        <span>{quiz}</span>
       </Quiz>
       <Answer onClick={onClear} small={length > 4}>
         <ul>
