@@ -30,7 +30,6 @@
     "graphql-middleware": "^3.0.2",
     "graphql-tools": "^4.0.5",
     "graphql-yoga": "^1.18.0",
-    "hangul-js": "^0.2.5",
     "helmet": "^3.18.0",
     "jsonwebtoken": "^8.5.1",
     "merge-graphql-schemas": "^1.5.8",

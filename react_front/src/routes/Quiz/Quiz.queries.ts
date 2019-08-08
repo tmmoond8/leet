@@ -9,7 +9,6 @@ export const GET_INITIAL = gql`
         quiz
         syllables
         id
-        level
         length
       }
     }

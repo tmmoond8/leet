@@ -13,6 +13,9 @@ const StyledHeader = styled.div`
   user-select: none;
   background-color: ${props => props.theme.color.violet};
   color: white;
+  -webkit-box-shadow: 0px 8px 14px -3px rgba(0,0,0,0.36);
+  -moz-box-shadow: 0px 8px 14px -3px rgba(0,0,0,0.36);
+  box-shadow: 0px 8px 14px -3px rgba(0,0,0,0.36);
   & > h1 {
     position: absolute;
     left: 50%;

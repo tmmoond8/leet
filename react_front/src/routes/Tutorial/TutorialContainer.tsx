@@ -34,8 +34,10 @@ class TutorialContainer extends Component<IProps, IState> {
   }
 
   leveling(initialData: getInitial_GetInitial_data[]) {
-    return initialData.reduce((accum, i) => (
-      accum[i.level] = (accum[i.level] || []).concat(i),
+    let key;
+    return initialData.reduce((accum, item, index) => (
+      key = Math.floor(index / 5) + 1,
+      accum[key] = (accum[key]|| []).concat(item),
       accum
     ), {})
   }
