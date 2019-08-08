@@ -10,6 +10,7 @@ interface IProps {
 
 const TutorialList = styled.ul`
   flex: 1;
+  overflow: auto;
   padding: 2rem 1rem;
   li + li {
     margin-top: .5rem;

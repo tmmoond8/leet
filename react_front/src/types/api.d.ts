@@ -202,7 +202,6 @@ export interface getInitial_GetInitial_data {
   quiz: string;
   syllables: (string | null)[];
   id: number;
-  level: number;
   length: number;
 }
 
