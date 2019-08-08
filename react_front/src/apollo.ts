@@ -9,7 +9,7 @@ import { getMainDefinition } from 'apollo-utilities';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const { protocol, hostname } = window.location;
+const { hostname } = window.location;
 const API_PORT = process.env.REACT_APP_API_PORT;
 
 const getToken = () => {
@@ -29,7 +29,7 @@ const authMiddleware = new ApolloLink((operation: Operation, forward: any) => {
 });
 
 const httpLink = new HttpLink({
-  uri: `${protocol}//${hostname}:${API_PORT}/graphql`
+  uri: `/graphql`
 });
 
 const wsLink = new WebSocketLink({
